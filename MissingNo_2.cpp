@@ -5,10 +5,10 @@ class Solution {
   public:
     int missingNum(vector<int>& arr) {
         long n = *max_element(arr.begin(), arr.end());
-        long expected_sum = n * (n + 1) / 2;
-        long actual_sum = accumulate(arr.begin(), arr.end(), 0L);
+        long expec_sum = n * (n + 1) / 2;
+        long act_sum = accumulate(arr.begin(), arr.end(), 0L);
 
-        long m = expected_sum - actual_sum;
+        long m = expec_sum - act_sum;
         if (m == 0) {
             return n + 1;
         }
@@ -19,12 +19,8 @@ class Solution {
 int main() {
     string input;
     getline(cin, input);
-
-    // Remove brackets
     input.erase(remove(input.begin(), input.end(), '['), input.end());
     input.erase(remove(input.begin(), input.end(), ']'), input.end());
-
-    // Parse numbers
     vector<int> arr;
     stringstream ss(input);
     string num;
