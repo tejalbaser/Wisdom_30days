@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.empty()) return "";
+        
+        string prefix = strs[0];
+        
+        for (int i = 1; i < strs.size(); i++) {
+            while (strs[i].find(prefix) != 0) {
+                prefix = prefix.substr(0, prefix.size() - 1);
+                if (prefix.empty()) return "";
+            }
+        }
+        return prefix;
+    }
+};
+
+int main() {
+    vector<string> strs;
+    string input;
+
+    cout << "Enter strings either in array format OR one per line (press Enter on empty line to stop):\n";
+    getline(cin, input);
+
+    // ✅ Case 1: Array format input like ["flower","flow","flight"]
+    if (!input.empty() && input[0] == '[') {
+        string temp = "";
+        for (char c : input) {
+            if (isalpha(c)) temp += c;
+            else if (!temp.empty()) {
+                strs.push_back(temp);
+                temp.clear();
+            }
+        }
+    } 
+    // ✅ Case 2: Single string entered, then read rest dynamically
+    else {
+        if (!input.empty()) strs.push_back(input);
+        while (true) {
+            getline(cin, input);
+            if (input.empty()) break;
+            strs.push_back(input);
+        }
+    }
+
+    Solution sol;
+    string result = sol.longestCommonPrefix(strs);
+
+    cout << "Longest Common Prefix: " << result << endl;
+
+    return 0;
+}
+
+/*
+Enter strings either in array format OR one per line (press Enter on empty line to stop):
+["flower", "flow", "flight"]
+
+Longest Common Prefix: fl
+*/
