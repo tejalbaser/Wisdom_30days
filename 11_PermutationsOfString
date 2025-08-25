@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<string> result;
+
+    void backtrack(string &s, int idx) {
+        if (idx == s.size()) {
+            result.push_back(s);
+            return;
+        }
+        unordered_set<char> used; 
+        for (int i = idx; i < s.size(); i++) {
+            if (used.count(s[i])) continue;
+            used.insert(s[i]);
+            swap(s[idx], s[i]);
+            backtrack(s, idx + 1);
+            swap(s[idx], s[i]);
+        }
+    }
+
+    vector<string> permuteUnique(string s) {
+        result.clear();
+        backtrack(s, 0);
+        return result;
+    }
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Solution sol;
+    string s;
+
+    // First input can be either string or integer (size of array)
+    string first;
+    if (!(cin >> first)) return 0;
+
+    if (isdigit(first[0])) {
+        // Array input format
+        int n = stoi(first);
+        vector<char> arr(n);
+        for (int i = 0; i < n; i++) cin >> arr[i];
+        s = string(arr.begin(), arr.end());
+    } else {
+        // Normal string input
+        s = first;
+    }
+
+    vector<string> ans = sol.permuteUnique(s);
+
+    cout << "\nAll unique permutations:\n";
+    for (auto &str : ans) {
+        cout << str << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
+/*
+input:abc
+
+All unique permutations:
+abc acb bac bca cba cab 
+*/
