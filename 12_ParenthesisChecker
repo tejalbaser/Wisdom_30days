@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    bool isBalanced(string& k) {
+        stack<char> s;
+        for (char ch : k) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                s.push(ch);
+            } else {
+                if (s.empty()) return false;
+                if ((ch == ')' && s.top() != '(') ||
+                    (ch == '}' && s.top() != '{') ||
+                    (ch == ']' && s.top() != '[')) {
+                    return false;
+                }
+                s.pop();
+            }
+        }
+        return s.empty();
+    }
+};
+
+int main() {
+    Solution sol;
+    string str;
+
+    cin >> str;
+
+    if (sol.isBalanced(str)) {
+        cout << "true" << endl;
+    } else {
+        cout << "false" << endl;
+    }
+
+    return 0;
+}
+
+
+/*
+Input: "[({])"
+Output: false
+*/
