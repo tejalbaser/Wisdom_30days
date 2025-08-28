@@ -46,6 +46,8 @@ int main() {
     return 0;
 }
 
+/*
 Enter string: pqpqs
 Enter k: 2
 7
+*/
